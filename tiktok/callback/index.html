@@ -1,0 +1,17 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autorización de TikTok</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/estilo.css"></head>
+<body><main>
+<h1 id="t">Autorización recibida</h1>
+<p id="m">Copia la dirección completa y pégala en la terminal donde corre <code>python tiktok_auth.py</code>.</p>
+<div class="card"><textarea id="u" readonly></textarea><button id="b">Copiar</button></div>
+<p>Esta página no guarda ni envía nada: el código solo se muestra en tu navegador y vence en pocos minutos.</p>
+<script>
+const u=document.getElementById('u'),p=new URLSearchParams(location.search);
+u.value=location.href;
+if(p.get('error')){document.getElementById('t').textContent='TikTok devolvió un error';
+ document.getElementById('m').textContent=(p.get('error_description')||p.get('error'))+' — vuelve a correr python tiktok_auth.py.';}
+else if(!p.get('code')){document.getElementById('t').textContent='Página de retorno de TikTok';
+ document.getElementById('m').textContent='Aquí aparecerá el código cuando autorices la app desde python tiktok_auth.py.';}
+document.getElementById('b').onclick=async()=>{try{await navigator.clipboard.writeText(u.value)}catch(e){u.select();document.execCommand('copy')}
+ document.getElementById('b').textContent='¡Copiado!';};
+</script></main></body></html>
